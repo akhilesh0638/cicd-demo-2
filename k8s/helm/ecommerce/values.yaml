@@ -57,7 +57,7 @@ ingress:
 
   className: alb
 
-  host: https://infocontent.site
+  host: infocontent.site
 
   certificateArn: "arn:aws:acm:ap-south-1:648967983842:certificate/854757e7-2ecf-4dab-b2cf-762071e0bbcd"
 
