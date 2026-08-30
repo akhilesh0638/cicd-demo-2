@@ -140,3 +140,19 @@ jobs:
         run: |
           docker push \
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_FRONTEND }}:${{ steps.image.outputs.tag }}
+
+
+      - name: Update Kubernetes deployment with new images
+        run: |
+          aws eks update-kubeconfig \
+            --region ap-south-1 \
+            --name ecommerce-dev-eks
+
+          helm upgrade --install ecommerce \
+            ./k8s/helm/ecommerce \
+            --namespace ecommerce \
+            --create-namespace \
+            --set frontend.image.repository=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_FRONTEND }} \
+            --set frontend.image.tag=${{ steps.image.outputs.tag }} \
+            --set backend.image.repository=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_BACKEND }} \
+            --set backend.image.tag=${{ steps.image.outputs.tag }}
