@@ -1,0 +1,4 @@
+/root/deployment/cicd-demo/backend/src/test/java/com/example/ecommerce/controller/ProductControllerTest.java
+/root/deployment/cicd-demo/backend/src/test/java/com/example/ecommerce/service/CartServiceImplTest.java
+/root/deployment/cicd-demo/backend/src/test/java/com/example/ecommerce/service/OrderServiceImplTest.java
+/root/deployment/cicd-demo/backend/src/test/java/com/example/ecommerce/service/ProductServiceImplTest.java
