@@ -1,20 +1,20 @@
 frontend:
   image:
-    repository: YOUR_AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-frontend
-    tag: YOUR_IMAGE_TAG
+    repository: 648967983842.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-frontend
+    tag: 59a67b4
 
 backend:
   image:
-    repository: YOUR_AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-backend
-    tag: YOUR_IMAGE_TAG
+    repository: 648967983842.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-backend
+    tag: 59a67b4
 
 database:
-  host: YOUR_RDS_ENDPOINT
+  host: terraform-bcc133b43d5231d06b5fcfa304.cb6uiekc8zcj.ap-south-1.rds.amazonaws.com
   port: "3306"
-  name: ecommerce_db
-  username: ecommerce_user
-  password: YOUR_RDS_PASSWORD
+  name: mysqleks
+  username: admin
+  password: Akhilesh6309
 
 ingress:
   host: infocontent.site
-  certificateArn: YOUR_ACM_CERTIFICATE_ARN
+  certificateArn: arn:aws:acm:ap-south-1:648967983842:certificate/44e8605c-b71e-4171-a9dc-29eaaf49846a

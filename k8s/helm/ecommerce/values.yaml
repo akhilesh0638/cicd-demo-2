@@ -4,8 +4,8 @@ frontend:
   replicaCount: 2
 
   image:
-    repository: ""
-    tag: ""
+    repository: "648967983842.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-frontend"
+    tag: "59a67b4"
 
   containerPort: 80
 
@@ -26,8 +26,8 @@ backend:
   replicaCount: 2
 
   image:
-    repository: ""
-    tag: ""
+    repository: "648967983842.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-backend"
+    tag: "59a67b4"
 
   containerPort: 8080
 
@@ -45,11 +45,11 @@ backend:
 
 
 database:
-  host: ""
+  host: "terraform-bcc133b43d5231d06b5fcfa304.cb6uiekc8zcj.ap-south-1.rds.amazonaws.com"
   port: "3306"
-  name: "ecommerce_db"
-  username: ""
-  password: ""
+  name: "mysqleks"
+  username: "admin"
+  password: "Akhilesh6309"
 
 
 ingress:
@@ -59,7 +59,7 @@ ingress:
 
   host: infocontent.site
 
-  certificateArn: ""
+  certificateArn: "arn:aws:acm:ap-south-1:648967983842:certificate/44e8605c-b71e-4171-a9dc-29eaaf49846a"
 
   scheme: internet-facing
 
