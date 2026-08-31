@@ -1,0 +1,20 @@
+frontend:
+  image:
+    repository: YOUR_AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-frontend
+    tag: YOUR_IMAGE_TAG
+
+backend:
+  image:
+    repository: YOUR_AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-backend
+    tag: YOUR_IMAGE_TAG
+
+database:
+  host: YOUR_RDS_ENDPOINT
+  port: "3306"
+  name: ecommerce_db
+  username: ecommerce_user
+  password: YOUR_RDS_PASSWORD
+
+ingress:
+  host: infocontent.site
+  certificateArn: YOUR_ACM_CERTIFICATE_ARN
