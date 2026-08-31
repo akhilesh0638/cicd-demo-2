@@ -36,6 +36,116 @@ jobs:
 
       - name: Build backend
         run: mvn clean package
+        
+#####SonarQube################
+      - name: SonarQube Scan
+        working-directory: backend
+        run: |
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+#######--NEXUS--###########
+#    - name: Configure Maven settings
+#      run: |
+#          mkdir -p ~/.m2
+#          cat > ~/.m2/settings.xml <<EOF
+#          <settings>
+#            <servers>
+#              <server>
+#                <id>nexus-releases</id>
+#                <username>${{ secrets.NEXUS_USERNAME }}</username>
+#                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+#              </server>
+#              <server>
+#                <id>nexus-snapshots</id>
+#                <username>${{ secrets.NEXUS_USERNAME }}</username>
+#                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+#              </server>
+#            </servers>
+#          </settings>
+#          EOF
+# 
+#    - name: Deploy Artifact to Nexus
+#      working-directory: ./backend
+#      run: |
+#          mvn clean deploy \
+#            -DskipTests \
+#            -DaltDeploymentRepository=nexus-releases::http://${{ secrets.NEXUS_URL }}:8081/repository/maven-releases/
+
+##########Docker##############
+#  docker:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+#          aws-region: ${{ vars.AWS_REGION }}
+#
+#
+#     - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v2
+#
+#
+#      - name: Build Backend Image
+#        run: |
+#          docker build \
+#            -t ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_BACKEND_REPOSITORY }}:${{ github.sha }} \
+#            ./backend
+#
+#
+#      - name: Build Frontend Image
+#        run: |
+#          docker build \
+#            --build-arg VITE_API_BASE_URL=http://3.110.136.107:8080/api \
+#            -t ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_FRONTEND_REPOSITORY }}:${{ github.sha }} \
+#            ./frontend
+#
+#
+#      - name: Trivy Backend Scan
+#        uses: aquasecurity/trivy-action@v0.36.0
+#        with:
+#          image-ref: '${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_BACKEND_REPOSITORY }}:${{ github.sha }}'
+#          scan-type: image
+#          scanners: vuln
+#          severity: MEDIUM,LOW,UNKNOWN
+#          vuln-type: os,library
+#          ignore-unfixed: true
+#          format: table
+#          exit-code: '0'
+#
+#
+#      - name: Trivy Frontend Scan
+#        uses: aquasecurity/trivy-action@v0.36.0
+#        with:
+#          image-ref: '${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_FRONTEND_REPOSITORY }}:${{ github.sha }}'
+#          scan-type: image
+#          scanners: vuln
+#          severity: MEDIUM,LOW,UNKNOWN
+#          vuln-type: os,library
+#          ignore-unfixed: true
+#          format: table
+#          exit-code: '0'
+#
+#
+#      - name: Push Backend Image
+#        run: |
+#          docker push \
+#            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_BACKEND_REPOSITORY }}:${{ github.sha }}
+#
+#
+#      - name: Push Frontend Image
+#        run: |
+#          docker push \
+#            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_FRONTEND_REPOSITORY }}:${{ github.sha }}
+#        
 
   frontend:
     name: Frontend Build
