@@ -45,7 +45,7 @@ backend:
 
 
 database:
-  host: ""
+  host: "terraform-bcc133b43d5231d06b5fcfa304.cb6uiekc8zcj.ap-south-1.rds.amazonaws.com"
   port: "3306"
   name: "mysqleks"
   username: "admin"
